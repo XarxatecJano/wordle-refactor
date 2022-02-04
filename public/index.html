@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
+    
+    <title>Wordle</title>
+</head>
+<body>
+    <header>
+        <button id="btn_help" class="top-btn">?</button>
+        <h1>WORDLE</h1>
+        <button id="btn_new_game" class="top-btn">!</button>
+        
+    </header>
+    <div id="main_container">
+        <div id="word_grid">
+            <div id="row_1" class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div id="row_2" class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div id="row_3" class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div id="row_4" class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div id="row_5" class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div id="row_6" class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+        </div>
+
+        <div id="keyboard">
+            <div class="row">
+                <button class="key" id="kQ" value="KeyQ">Q</button>
+                <button class="key" id="kW" value="KeyW">W</button>
+                <button class="key" value="KeyE">E</button>
+                <button class="key" value="KeyR">R</button>
+                <button class="key" value="KeyT">T</button>
+                <button class="key" value="KeyY">Y</button>
+                <button class="key" value="KeyU">U</button>
+                <button class="key" value="KeyI">I</button>
+                <button class="key" value="KeyO">O</button>
+                <button class="key" value="KeyP">P</button>
+            </div>
+            <div class="row">
+                <button class="key" value="KeyA">A</button>
+                <button class="key" value="KeyS">S</button>
+                <button class="key" value="KeyD">D</button>
+                <button class="key" value="KeyF">F</button>
+                <button class="key" value="KeyG">G</button>
+                <button class="key" value="KeyH">H</button>
+                <button class="key" value="KeyJ">J</button>
+                <button class="key" value="KeyK">K</button>
+                <button class="key" value="KeyL">L</button>
+                <button class="key" value="Semicolon">Ñ</button>
+            </div>
+            <div class="row">
+                <button id="enter_key" class="key k-enter" value="Enter">ENTER</button>
+                <button class="key" value="KeyZ">Z</button>
+                <button class="key" value="KeyX">X</button>
+                <button class="key" value="KeyC">C</button>
+                <button class="key" value="KeyV">V</button>
+                <button class="key" value="KeyB">B</button>
+                <button class="key" value="KeyN">N</button>
+                <button class="key" value="KeyM">M</button>
+                <button class="key k-back" value="Backspace">&#9003;</button>
+
+            </div>
+        </div>
+    </div>
+    <script src="./src/script.js" type="module"></script>
+</body>
+</html>
