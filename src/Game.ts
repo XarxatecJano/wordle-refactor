@@ -1,15 +1,21 @@
 import {MAX_WORD_SIZE, MAX_ATTEMPTS} from "./env.js";
-import Interface from "./Interface.js";
+import {Interface} from "./Interface.js";
 //import Key from "./Key.js";
 
-export default class Game {
-    constructor(pickedWord){
-        this.pickedWord = pickedWord;
-        this.actualWord = "";
-        this.turn = 1;
-        this.actualPosition = 0;
-        this.validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
-        this.interface = new Interface();
+export class Game {
+    private _pickedWord: string
+    private _actualWord: string
+    private _turn: number
+    private _actualPosition: number
+    private _validLetterCodes: string[]
+    private _interface: Interface
+    constructor(pickedWord: string){
+        this._pickedWord = pickedWord;
+        this._actualWord = "";
+        this._turn = 1;
+        this._actualPosition = 0;
+        this._validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
+        this._interface = new Interface();
     }
 
     get pickedWord(){
@@ -54,28 +60,28 @@ export default class Game {
         this._interface = i;
     }
     
-    isValidLetter(code) {
+    isValidLetter(code: string):boolean {
         
         return  this._validLetterCodes.includes(code) && this._actualPosition < MAX_WORD_SIZE;
      }
 
-    isEnterKey(code) {
+    isEnterKey(code: string):boolean {
         return code=="Enter";
     }
 
-    isBackspaceKey(code){
+    isBackspaceKey(code: string):boolean{
         return code=="Backspace";
     }
 
-    transformCodeToLetter(code){
-        let letter = "";
+    transformCodeToLetter(code: string):string{
+        let letter: string = "";
         if (code=="Semicolon") letter = "Ñ";
         else letter = code.split("y")[1];
         return letter;
     }
 
-    newLetter(code){
-        let letter = this.transformCodeToLetter(code);
+    newLetter(code: string){
+        let letter: string = this.transformCodeToLetter(code);
         this._interface.setNewLetter(this.turn, this.actualPosition, letter);
         this._actualPosition = this._actualPosition + 1;
         this._actualWord += letter;
@@ -83,19 +89,19 @@ export default class Game {
 
     checkWordIsRight(){
         if (this._actualWord == this._pickedWord){
-            location.assign("./winner.html");
+            location.assign("./build/public/winner.html");
         }
     }
 
     updateAfterANewWord = ()=>{
-        this._turn += 1;
+        this._turn = this._turn + 1;
         this._actualPosition = 0;
         this._actualWord = "";
     }
 
     checkGameIsOver(){
         if (this.turn == MAX_ATTEMPTS){
-            location.assign("./loser.html");
+            location.assign("build/public/loser.html");
         }
     }
 
@@ -107,14 +113,14 @@ export default class Game {
         }
     }
 
-    backspacePressed(code){
+    backspacePressed(){
         if (this._actualPosition > 0) {
             this._actualPosition -= 1;
             this._interface.deleteLetter(this._turn, this._actualPosition);
         }
     }
 
-    newKeyPressed(code){ 
+    newKeyPressed(code: string){ 
         //const key = new Key(code);
         if (this.isValidLetter(code)) this.newLetter(code);
         if (this.isEnterKey(code)) this.enterPressed();
