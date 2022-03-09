@@ -101,12 +101,12 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.checkWordIsRight = function () {
         if (this._actualWord == this._pickedWord) {
-            location.assign("./build/public/winner.html");
+            location.assign("/winner");
         }
     };
     Game.prototype.checkGameIsOver = function () {
         if (this.turn == MAX_ATTEMPTS) {
-            location.assign("build/public/loser.html");
+            location.assign("/loser");
         }
     };
     Game.prototype.enterPressed = function () {

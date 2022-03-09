@@ -89,7 +89,7 @@ export class Game {
 
     checkWordIsRight(){
         if (this._actualWord == this._pickedWord){
-            location.assign("./build/public/winner.html");
+            location.assign("/winner");
         }
     }
 
@@ -101,7 +101,7 @@ export class Game {
 
     checkGameIsOver(){
         if (this.turn == MAX_ATTEMPTS){
-            location.assign("build/public/loser.html");
+            location.assign("/loser");
         }
     }
 
