@@ -100,14 +100,19 @@ h1 {
 }
 
 .cell-orange {
-    background-color: #F8961E;
+    background-color: #C9B459;
     color: white;
 }
 .cell-green {
-    background-color: #74A94C;
+    background-color: #6AAA64;
     color: #ffffff;
 }
-.cell-grey {
-    background-color: #858585;
+.cell-grey{
+    background-color: #787C7E;
+    color: #ffffff;
+}
+
+.keyPressed{
+    background-color: #787C7E;
     color: #ffffff;
 }
