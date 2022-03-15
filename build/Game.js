@@ -13,28 +13,41 @@ var Game = /** @class */ (function () {
         this.checkMisplacedLetters = function () {
             var actualLetter = "";
             var pattern;
-            var numberOfCoincidences = 0;
-            var isMisplacedLetter;
+            var numberOfCoincidencesPickedWord = 0;
+            var numberOfCoincidencesActualWord = 0;
+            var differenceOfCoincidences = 0;
+            var isMisplacedLetter = true;
             for (var i = 0; i < MAX_WORD_SIZE; i++) {
                 isMisplacedLetter = true;
                 actualLetter = _this._actualWord[i];
                 pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidences = (_this._pickedWord.match(pattern) || []).length;
-                if (_this._pickedWord[i] == _this._actualWord[i])
+                numberOfCoincidencesPickedWord = (_this._pickedWord.match(pattern) || []).length;
+                numberOfCoincidencesActualWord = (_this._actualWord.match(pattern) || []).length;
+                differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
+                if (differenceOfCoincidences == 1) {
+                    for (var j = 0; j < MAX_WORD_SIZE; j++) {
+                        if (_this._pickedWord[j] == actualLetter) {
+                            isMisplacedLetter = false;
+                            break;
+                        }
+                    }
+                }
+                if (differenceOfCoincidences == 0 && _this._pickedWord[i] == _this._actualWord[i]) {
                     isMisplacedLetter = false;
-                if (numberOfCoincidences > 0 && isMisplacedLetter)
+                }
+                if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter)
                     _this._interface.changeBackgroundPosition(_this._turn, i, "misplacedLetter");
             }
         };
         this.checkWrongLetters = function () {
             var actualLetter = "";
             var pattern;
-            var numberOfCoincidences = 0;
+            var numberOfCoincidencesPickedWord = 0;
             for (var i = 0; i < MAX_WORD_SIZE; i++) {
                 actualLetter = _this._actualWord[i];
                 pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidences = (_this._pickedWord.match(pattern) || []).length;
-                if (numberOfCoincidences == 0)
+                numberOfCoincidencesPickedWord = (_this._pickedWord.match(pattern) || []).length;
+                if (numberOfCoincidencesPickedWord == 0)
                     _this._interface.changeBackgroundPosition(_this._turn, i, "wrongLetter");
             }
         };

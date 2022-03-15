@@ -103,15 +103,29 @@ export class Game {
     checkMisplacedLetters = ():void=> {
         let actualLetter: string = "";
         let pattern: RegExp;
-        let numberOfCoincidences: number = 0;
-        let isMisplacedLetter: boolean;
+        let numberOfCoincidencesPickedWord: number = 0;
+        let numberOfCoincidencesActualWord: number = 0;
+        let differenceOfCoincidences: number = 0;
+        let isMisplacedLetter: boolean = true;
         for (let i=0; i<MAX_WORD_SIZE; i++){
             isMisplacedLetter = true;
             actualLetter = this._actualWord[i];
             pattern = new RegExp(actualLetter,"g");
-            numberOfCoincidences = (this._pickedWord.match(pattern)||[]).length;
-            if (this._pickedWord[i]==this._actualWord[i]) isMisplacedLetter=false;
-            if (numberOfCoincidences>0 && isMisplacedLetter) this._interface.changeBackgroundPosition(this._turn, i, "misplacedLetter");
+            numberOfCoincidencesPickedWord = (this._pickedWord.match(pattern)||[]).length;
+            numberOfCoincidencesActualWord = (this._actualWord.match(pattern)||[]).length;
+            differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
+            if (differenceOfCoincidences==1){
+                for (let j=0; j<MAX_WORD_SIZE; j++){
+                    if(this._pickedWord[j]==actualLetter) {
+                        isMisplacedLetter = false;
+                        break;
+                    }
+                }
+            }
+            if (differenceOfCoincidences==0 && this._pickedWord[i]==this._actualWord[i]){
+                isMisplacedLetter=false;
+            }
+            if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this._interface.changeBackgroundPosition(this._turn, i, "misplacedLetter");
             
         }
     }
@@ -119,12 +133,12 @@ export class Game {
     checkWrongLetters = ():void=>{
         let actualLetter = "";
         let pattern:RegExp;
-        let numberOfCoincidences = 0;
+        let numberOfCoincidencesPickedWord = 0;
         for (let i=0; i<MAX_WORD_SIZE; i++){
             actualLetter = this._actualWord[i];
             pattern = new RegExp(actualLetter,"g");
-            numberOfCoincidences = (this._pickedWord.match(pattern)||[]).length;
-            if (numberOfCoincidences==0) this._interface.changeBackgroundPosition(this._turn, i, "wrongLetter");
+            numberOfCoincidencesPickedWord = (this._pickedWord.match(pattern)||[]).length;
+            if (numberOfCoincidencesPickedWord==0) this._interface.changeBackgroundPosition(this._turn, i, "wrongLetter");
         }
     }
 
