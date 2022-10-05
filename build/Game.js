@@ -1,186 +1,178 @@
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+};
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _Game_pickedWord, _Game_actualWord, _Game_turn, _Game_actualPosition, _Game_validLetterCodes, _Game_interface;
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./env.js";
 import { Interface } from "./Interface.js";
-var Game = /** @class */ (function () {
-    function Game(pickedWord) {
-        var _this = this;
-        this.checkRightLetters = function () {
-            for (var i = 0; i < MAX_WORD_SIZE; i++) {
-                if (_this._pickedWord[i] == _this._actualWord[i]) {
-                    _this._interface.changeBackgroundPosition(_this._turn, i, "rightLetter");
+export class Game {
+    constructor(pickedWord) {
+        _Game_pickedWord.set(this, void 0);
+        _Game_actualWord.set(this, void 0);
+        _Game_turn.set(this, void 0);
+        _Game_actualPosition.set(this, void 0);
+        _Game_validLetterCodes.set(this, void 0);
+        _Game_interface.set(this, void 0);
+        this.checkRightLetters = () => {
+            for (let i = 0; i < MAX_WORD_SIZE; i++) {
+                if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
+                    __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "rightLetter");
                 }
             }
         };
-        this.checkMisplacedLetters = function () {
-            var actualLetter = "";
-            var pattern;
-            var numberOfCoincidencesPickedWord = 0;
-            var numberOfCoincidencesActualWord = 0;
-            var differenceOfCoincidences = 0;
-            var isMisplacedLetter = true;
-            for (var i = 0; i < MAX_WORD_SIZE; i++) {
+        this.checkMisplacedLetters = () => {
+            let actualLetter = "";
+            let pattern;
+            let numberOfCoincidencesPickedWord = 0;
+            let numberOfCoincidencesActualWord = 0;
+            let differenceOfCoincidences = 0;
+            let isMisplacedLetter = true;
+            for (let i = 0; i < MAX_WORD_SIZE; i++) {
                 isMisplacedLetter = true;
-                actualLetter = _this._actualWord[i];
+                actualLetter = __classPrivateFieldGet(this, _Game_actualWord, "f")[i];
                 pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidencesPickedWord = (_this._pickedWord.match(pattern) || []).length;
-                numberOfCoincidencesActualWord = (_this._actualWord.match(pattern) || []).length;
+                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
+                numberOfCoincidencesActualWord = (__classPrivateFieldGet(this, _Game_actualWord, "f").match(pattern) || []).length;
                 differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
                 if (differenceOfCoincidences == 1) {
-                    for (var j = 0; j < MAX_WORD_SIZE; j++) {
-                        if (_this._pickedWord[j] == actualLetter) {
+                    for (let j = 0; j < MAX_WORD_SIZE; j++) {
+                        if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[j] == actualLetter) {
                             isMisplacedLetter = false;
                             break;
                         }
                     }
                 }
-                if (differenceOfCoincidences == 0 && _this._pickedWord[i] == _this._actualWord[i]) {
+                if (differenceOfCoincidences == 0 && __classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
                     isMisplacedLetter = false;
                 }
                 if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter)
-                    _this._interface.changeBackgroundPosition(_this._turn, i, "misplacedLetter");
+                    __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
             }
         };
-        this.checkWrongLetters = function () {
-            var actualLetter = "";
-            var pattern;
-            var numberOfCoincidencesPickedWord = 0;
-            for (var i = 0; i < MAX_WORD_SIZE; i++) {
-                actualLetter = _this._actualWord[i];
+        this.checkWrongLetters = () => {
+            let actualLetter = "";
+            let pattern;
+            let numberOfCoincidencesPickedWord = 0;
+            for (let i = 0; i < MAX_WORD_SIZE; i++) {
+                actualLetter = __classPrivateFieldGet(this, _Game_actualWord, "f")[i];
                 pattern = new RegExp(actualLetter, "g");
-                numberOfCoincidencesPickedWord = (_this._pickedWord.match(pattern) || []).length;
+                numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
                 if (numberOfCoincidencesPickedWord == 0)
-                    _this._interface.changeBackgroundPosition(_this._turn, i, "wrongLetter");
+                    __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "wrongLetter");
             }
         };
-        this.updateAfterANewWord = function () {
-            _this.checkRightLetters();
-            _this.checkMisplacedLetters();
-            _this.checkWrongLetters();
-            _this._turn = _this._turn + 1;
-            _this._actualPosition = 0;
-            _this._actualWord = "";
+        this.updateAfterANewWord = () => {
+            this.checkRightLetters();
+            this.checkMisplacedLetters();
+            this.checkWrongLetters();
+            __classPrivateFieldSet(this, _Game_turn, __classPrivateFieldGet(this, _Game_turn, "f") + 1, "f");
+            __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
+            __classPrivateFieldSet(this, _Game_actualWord, "", "f");
         };
-        this._pickedWord = pickedWord;
-        this._actualWord = "";
-        this._turn = 1;
-        this._actualPosition = 0;
-        this._validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
-        this._interface = new Interface();
+        __classPrivateFieldSet(this, _Game_pickedWord, pickedWord, "f");
+        __classPrivateFieldSet(this, _Game_actualWord, "", "f");
+        __classPrivateFieldSet(this, _Game_turn, 1, "f");
+        __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
+        __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
+        __classPrivateFieldSet(this, _Game_interface, new Interface(), "f");
     }
-    Object.defineProperty(Game.prototype, "pickedWord", {
-        get: function () {
-            return this._pickedWord;
-        },
-        set: function (word) {
-            this._pickedWord = word;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Game.prototype, "actualWord", {
-        get: function () {
-            return this._actualWord;
-        },
-        set: function (word) {
-            this._actualWord = word;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Game.prototype, "turn", {
-        get: function () {
-            return this._turn;
-        },
-        set: function (num) {
-            this._turn = num;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Game.prototype, "actualPosition", {
-        get: function () {
-            return this._actualPosition;
-        },
-        set: function (num) {
-            this._actualPosition = num;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Game.prototype, "validLetterCodes", {
-        get: function () {
-            return this._validLetterCodes;
-        },
-        set: function (letters) {
-            this._validLetterCodes = letters;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(Game.prototype, "interface", {
-        get: function () {
-            return this._interface;
-        },
-        set: function (i) {
-            this._interface = i;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Game.prototype.isValidLetter = function (code) {
-        return this._validLetterCodes.includes(code) && this._actualPosition < MAX_WORD_SIZE;
-    };
-    Game.prototype.isEnterKey = function (code) {
+    get pickedWord() {
+        return __classPrivateFieldGet(this, _Game_pickedWord, "f");
+    }
+    set pickedWord(word) {
+        __classPrivateFieldSet(this, _Game_pickedWord, word, "f");
+    }
+    get actualWord() {
+        return __classPrivateFieldGet(this, _Game_actualWord, "f");
+    }
+    set actualWord(word) {
+        __classPrivateFieldSet(this, _Game_actualWord, word, "f");
+    }
+    get turn() {
+        return __classPrivateFieldGet(this, _Game_turn, "f");
+    }
+    set turn(num) {
+        __classPrivateFieldSet(this, _Game_turn, num, "f");
+    }
+    get actualPosition() {
+        return __classPrivateFieldGet(this, _Game_actualPosition, "f");
+    }
+    set actualPosition(num) {
+        __classPrivateFieldSet(this, _Game_actualPosition, num, "f");
+    }
+    get validLetterCodes() {
+        return __classPrivateFieldGet(this, _Game_validLetterCodes, "f");
+    }
+    set validLetterCodes(letters) {
+        __classPrivateFieldSet(this, _Game_validLetterCodes, letters, "f");
+    }
+    get interface() {
+        return __classPrivateFieldGet(this, _Game_interface, "f");
+    }
+    set interface(i) {
+        __classPrivateFieldSet(this, _Game_interface, i, "f");
+    }
+    isValidLetter(code) {
+        return __classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE;
+    }
+    isEnterKey(code) {
         return code == "Enter";
-    };
-    Game.prototype.isBackspaceKey = function (code) {
+    }
+    isBackspaceKey(code) {
         return code == "Backspace";
-    };
-    Game.prototype.transformCodeToLetter = function (code) {
-        var letter = "";
+    }
+    transformCodeToLetter(code) {
+        let letter = "";
         if (code == "Semicolon")
             letter = "Ñ";
         else
             letter = code.split("y")[1];
         return letter;
-    };
-    Game.prototype.newLetter = function (code) {
-        var letter = this.transformCodeToLetter(code);
-        this._interface.setNewLetter(this.turn, this.actualPosition, letter);
-        this._actualPosition = this._actualPosition + 1;
-        this._actualWord += letter;
-    };
-    Game.prototype.checkWordIsRight = function () {
-        if (this._actualWord == this._pickedWord) {
+    }
+    newLetter(code) {
+        let letter = this.transformCodeToLetter(code);
+        __classPrivateFieldGet(this, _Game_interface, "f").setNewLetter(this.turn, this.actualPosition, letter);
+        __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
+        __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letter, "f");
+    }
+    checkWordIsRight() {
+        if (__classPrivateFieldGet(this, _Game_actualWord, "f") == __classPrivateFieldGet(this, _Game_pickedWord, "f")) {
             location.assign("/winner");
         }
-    };
-    Game.prototype.checkGameIsOver = function () {
+    }
+    checkGameIsOver() {
         if (this.turn == MAX_ATTEMPTS) {
             location.assign("/loser");
         }
-    };
-    Game.prototype.enterPressed = function () {
-        if (this._actualWord.length == MAX_WORD_SIZE) {
+    }
+    enterPressed() {
+        if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
             this.checkWordIsRight();
             this.checkGameIsOver();
             this.updateAfterANewWord();
         }
-    };
-    Game.prototype.backspacePressed = function () {
-        if (this._actualPosition > 0) {
-            this._actualPosition -= 1;
-            this._interface.deleteLetter(this._turn, this._actualPosition);
+    }
+    backspacePressed() {
+        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
+            __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
+            __classPrivateFieldGet(this, _Game_interface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
         }
-    };
-    Game.prototype.newKeyPressed = function (code) {
+    }
+    newKeyPressed(code) {
         if (this.isValidLetter(code))
             this.newLetter(code);
         if (this.isEnterKey(code))
             this.enterPressed();
         if (this.isBackspaceKey(code))
             this.backspacePressed();
-        this._interface.changeBackgroundKey(code);
-    };
-    return Game;
-}());
-export { Game };
+        __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundKey(code);
+    }
+}
+_Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_interface = new WeakMap();

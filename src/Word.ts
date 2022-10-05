@@ -1,20 +1,20 @@
 export class Word {
 
-    private _words: string[];
+    #words: string[];
     constructor(wordsArray: string[]){
-        this._words = wordsArray;
+        this.#words = wordsArray;
     }
 
-    get Words(){
-        return this._words;
+    get words(){
+        return this.#words;
     }
-    set Words(wordsArray: string[]){
-        this._words = wordsArray;
+    set words(wordsArray: string[]){
+        this.#words = wordsArray;
     }
 
     getRandomWord():string {
         const min = 0;
-        const max = this._words.length-1;
-        return this._words[Math.trunc(Math.random() * (max - min + 1))]
+        const max = this.#words.length-1;
+        return this.#words[Math.trunc(Math.random() * (max - min + 1))]
     }
 }
