@@ -9,9 +9,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _Game_pickedWord, _Game_actualWord, _Game_turn, _Game_actualPosition, _Game_validLetterCodes, _Game_interface;
+var _Game_pickedWord, _Game_actualWord, _Game_turn, _Game_actualPosition, _Game_validLetterCodes, _Game_userInterface;
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./env.js";
-import { Interface } from "./Interface.js";
+import { UIChanger } from "./UIChanger.js";
 export class Game {
     constructor(pickedWord) {
         _Game_pickedWord.set(this, void 0);
@@ -19,11 +19,11 @@ export class Game {
         _Game_turn.set(this, void 0);
         _Game_actualPosition.set(this, void 0);
         _Game_validLetterCodes.set(this, void 0);
-        _Game_interface.set(this, void 0);
+        _Game_userInterface.set(this, void 0);
         this.checkRightLetters = () => {
             for (let i = 0; i < MAX_WORD_SIZE; i++) {
                 if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
-                    __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "rightLetter");
+                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "rightLetter");
                 }
             }
         };
@@ -53,7 +53,7 @@ export class Game {
                     isMisplacedLetter = false;
                 }
                 if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter)
-                    __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
+                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
             }
         };
         this.checkWrongLetters = () => {
@@ -65,7 +65,7 @@ export class Game {
                 pattern = new RegExp(actualLetter, "g");
                 numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
                 if (numberOfCoincidencesPickedWord == 0)
-                    __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "wrongLetter");
+                    __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundPosition(__classPrivateFieldGet(this, _Game_turn, "f"), i, "wrongLetter");
             }
         };
         this.updateAfterANewWord = () => {
@@ -81,7 +81,7 @@ export class Game {
         __classPrivateFieldSet(this, _Game_turn, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
         __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
-        __classPrivateFieldSet(this, _Game_interface, new Interface(), "f");
+        __classPrivateFieldSet(this, _Game_userInterface, new UIChanger(), "f");
     }
     get pickedWord() {
         return __classPrivateFieldGet(this, _Game_pickedWord, "f");
@@ -114,10 +114,10 @@ export class Game {
         __classPrivateFieldSet(this, _Game_validLetterCodes, letters, "f");
     }
     get interface() {
-        return __classPrivateFieldGet(this, _Game_interface, "f");
+        return __classPrivateFieldGet(this, _Game_userInterface, "f");
     }
     set interface(i) {
-        __classPrivateFieldSet(this, _Game_interface, i, "f");
+        __classPrivateFieldSet(this, _Game_userInterface, i, "f");
     }
     isValidLetter(code) {
         return __classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE;
@@ -138,7 +138,7 @@ export class Game {
     }
     newLetter(code) {
         let letter = this.transformCodeToLetter(code);
-        __classPrivateFieldGet(this, _Game_interface, "f").setNewLetter(this.turn, this.actualPosition, letter);
+        __classPrivateFieldGet(this, _Game_userInterface, "f").setNewLetter(this.turn, this.actualPosition, letter);
         __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") + 1, "f");
         __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f") + letter, "f");
     }
@@ -162,7 +162,7 @@ export class Game {
     backspacePressed() {
         if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
             __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
-            __classPrivateFieldGet(this, _Game_interface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
+            __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
         }
     }
     newKeyPressed(code) {
@@ -172,7 +172,7 @@ export class Game {
             this.enterPressed();
         if (this.isBackspaceKey(code))
             this.backspacePressed();
-        __classPrivateFieldGet(this, _Game_interface, "f").changeBackgroundKey(code);
+        __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(code);
     }
 }
-_Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_interface = new WeakMap();
+_Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_userInterface = new WeakMap();

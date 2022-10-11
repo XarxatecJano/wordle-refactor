@@ -1,4 +1,4 @@
-export class Interface {
+export class UIChanger {
     setNewLetter(turn: number,position: number, letter: string) {
         Array.from(document.getElementById(`row_${turn}`)!.children)[position].textContent = letter;
     }
