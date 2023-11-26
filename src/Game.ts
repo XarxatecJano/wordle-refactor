@@ -52,10 +52,10 @@ export class Game {
         this.#validLetterCodes = letters;
     }
 
-    get interface() {
+    get userInterface() {
         return this.#userInterface;
     }
-    set interface(i) {
+    set userInterface(i) {
         this.#userInterface = i;
     }
     
