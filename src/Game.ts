@@ -1,13 +1,14 @@
 import {MAX_WORD_SIZE, MAX_ATTEMPTS} from "./env.js";
 import {UIChanger} from "./UIChanger.js";
 
-export class Game {
-    #pickedWord: string
-    #actualWord: string
-    #turn: number
-    #actualPosition: number
-    #validLetterCodes: string[]
-    #userInterface: UIChanger
+export class Game{
+    #pickedWord: string;
+    #actualWord: string;
+    #turn: number;
+    #actualPosition: number;
+    #validLetterCodes: string[];
+    #userInterface: UIChanger;
+    
     constructor(pickedWord: string){
         this.#pickedWord = pickedWord;
         this.#actualWord = "";
