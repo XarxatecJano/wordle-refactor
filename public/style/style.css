@@ -96,8 +96,8 @@ h1 {
     padding-top: .75rem;
 }
 .k-enter {
-    /* min-width: fit-content; */
-    flex-basis: content;
+    min-width: fit-content;
+    
 }
 
 .cell-orange {
