@@ -17,8 +17,8 @@ export class solutionWord{
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const result = await response.json();
-            console.log(result);
-            return result;
+            // console.log(result['word']);
+            return result['word'].toUpperCase();
         } catch (error) {
             console.error(error);
             return error;
