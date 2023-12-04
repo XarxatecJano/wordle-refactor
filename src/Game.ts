@@ -167,17 +167,24 @@ export class Game{
     }
 
     backspacePressed():void{
+        console.log(this.#actualPosition)
         if (this.#actualPosition > 0) {
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
+            this.#actualWord = this.#actualWord.slice(0, -1);
         }
+        console.log(this.#actualPosition)
+        console.log(this.#actualWord)
     }
 
     newKeyPressed(code: string):void{ 
+        console.log(this.#actualPosition)
         if (this.isValidLetter(code)) this.newLetter(code);
         if (this.isEnterKey(code)) this.enterPressed();
         if (this.isBackspaceKey(code)) this.backspacePressed();
         this.#userInterface.changeBackgroundKey(code);
+        console.log(this.#actualPosition)
+        console.log(this.#actualWord)
     }
 
     
