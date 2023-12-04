@@ -12,12 +12,12 @@ export class UIChanger {
         Array.from(document.getElementById(`row_${turn}`)!.children)[position].classList.add(positionClass);
     }
     changeBackgroundKey(code: string){
-       const keys: any = document.getElementsByClassName("key");
-       for (let key of keys) {
+        const keys: any = document.getElementsByClassName("key");
+        for (let key of keys) {
             if (key.value == code && code !== "Enter" && code !=="Backspace"){
                 key.classList.add("keyPressed");
             }
-       }
+        }
     }
 }
 
