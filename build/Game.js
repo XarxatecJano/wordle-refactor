@@ -113,10 +113,10 @@ export class Game {
     set validLetterCodes(letters) {
         __classPrivateFieldSet(this, _Game_validLetterCodes, letters, "f");
     }
-    get interface() {
+    get userInterface() {
         return __classPrivateFieldGet(this, _Game_userInterface, "f");
     }
-    set interface(i) {
+    set userInterface(i) {
         __classPrivateFieldSet(this, _Game_userInterface, i, "f");
     }
     isValidLetter(code) {
