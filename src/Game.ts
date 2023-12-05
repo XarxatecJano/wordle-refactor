@@ -152,7 +152,7 @@ export class Game {
     }
 
     checkGameIsOver():void{
-        if (this.turn == MAX_ATTEMPTS){
+        if (this.turn == MAX_ATTEMPTS && this.#actualWord != this.#pickedWord){
             location.assign("/loser");
         }
     }
@@ -168,6 +168,7 @@ export class Game {
     backspacePressed():void{
         if (this.#actualPosition > 0) {
             this.#actualPosition -= 1;
+            this.#actualWord = this.#actualWord.slice(0, this.#actualWord.length-1);
             this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
         }
     }

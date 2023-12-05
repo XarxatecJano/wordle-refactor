@@ -148,7 +148,7 @@ export class Game {
         }
     }
     checkGameIsOver() {
-        if (this.turn == MAX_ATTEMPTS) {
+        if (this.turn == MAX_ATTEMPTS && __classPrivateFieldGet(this, _Game_actualWord, "f") != __classPrivateFieldGet(this, _Game_pickedWord, "f")) {
             location.assign("/loser");
         }
     }
@@ -162,6 +162,7 @@ export class Game {
     backspacePressed() {
         if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
             __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
+            __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f").slice(0, __classPrivateFieldGet(this, _Game_actualWord, "f").length - 1), "f");
             __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
         }
     }
