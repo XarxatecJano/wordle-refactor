@@ -1,4 +1,6 @@
-export class UIChanger {
+import { IUserInterface } from "./iUserInterface";
+
+export class UIChanger implements IUserInterface {
     setNewLetter(turn: number,position: number, letter: string) {
         Array.from(document.getElementById(`row_${turn}`)!.children)[position].textContent = letter;
     }
