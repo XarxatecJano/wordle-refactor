@@ -203,7 +203,11 @@ export class Game{
         }
         if (this.isEnterKey(code)) this.enterPressed();
         if (this.isBackspaceKey(code)) this.backspacePressed();
+<<<<<<< HEAD
         this.#backgroundManager.changeKeyBackground(code);
+=======
+        this.#userInterface.changeBackgroundKey(code);
+>>>>>>> d4bf8a7 (bug: test git)
         //console.log(this.#actualPosition)
         console.log(this.#actualWord)
     }
