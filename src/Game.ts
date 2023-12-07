@@ -61,8 +61,7 @@ export class Game{
     }
     
     isValidLetter(code: string):boolean {
-        
-        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE;
+        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
     }
 
     isEnterKey(code: string):boolean {
@@ -167,24 +166,25 @@ export class Game{
     }
 
     backspacePressed():void{
-        console.log(this.#actualPosition)
+        // console.log(this.#actualPosition)
         if (this.#actualPosition > 0) {
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
             this.#actualWord = this.#actualWord.slice(0, -1);
         }
-        console.log(this.#actualPosition)
-        console.log(this.#actualWord)
+        // console.log(this.#actualPosition)
+        // console.log(this.#actualWord)
     }
 
     newKeyPressed(code: string):void{ 
-        console.log(this.#actualPosition)
-        if (this.isValidLetter(code)) this.newLetter(code);
+        if (this.#actualPosition < MAX_WORD_SIZE) { // Creo que hay que colocar esto aquí y no dentro de isValidLetter porque antes de permitir meter más letras hay que comprobarlo
+            if (this.isValidLetter(code)) this.newLetter(code);
+        }
         if (this.isEnterKey(code)) this.enterPressed();
         if (this.isBackspaceKey(code)) this.backspacePressed();
         this.#userInterface.changeBackgroundKey(code);
-        console.log(this.#actualPosition)
-        console.log(this.#actualWord)
+        // console.log(this.#actualPosition)
+        // console.log(this.#actualWord)
     }
 
     
