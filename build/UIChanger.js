@@ -11,7 +11,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _UIChanger_letterManager, _UIChanger_backgroundManager;
 import { LetterManager } from './LetterManager.js';
-import { BackgroundManager } from './BackgroundManager.js';
+import { BackgroundManager } from './userInterface/BackgroundManager.js';
 export class UIChanger {
     constructor() {
         _UIChanger_letterManager.set(this, void 0);
@@ -26,10 +26,10 @@ export class UIChanger {
         __classPrivateFieldGet(this, _UIChanger_letterManager, "f").deleteLetter(turn, position);
     }
     changeBackgroundPosition(turn, position, state) {
-        __classPrivateFieldGet(this, _UIChanger_backgroundManager, "f").changeBackgroundPosition(turn, position, state);
+        __classPrivateFieldGet(this, _UIChanger_backgroundManager, "f").changeCellBackground(turn, position, state);
     }
     changeBackgroundKey(code) {
-        __classPrivateFieldGet(this, _UIChanger_backgroundManager, "f").changeBackgroundKey(code);
+        __classPrivateFieldGet(this, _UIChanger_backgroundManager, "f").changeKeyBackground(code);
     }
 }
 _UIChanger_letterManager = new WeakMap(), _UIChanger_backgroundManager = new WeakMap();

@@ -9,13 +9,17 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _BackgroundManager_state, _BackgroundManager_position;
+var _BackgroundManager_state, _BackgroundManager_position, _BackgroundManager_turn, _BackgroundManager_code;
 export class BackgroundManager {
     constructor() {
         _BackgroundManager_state.set(this, void 0);
         _BackgroundManager_position.set(this, void 0);
+        _BackgroundManager_turn.set(this, void 0);
+        _BackgroundManager_code.set(this, void 0);
         __classPrivateFieldSet(this, _BackgroundManager_position, 0, "f");
         __classPrivateFieldSet(this, _BackgroundManager_state, "", "f");
+        __classPrivateFieldSet(this, _BackgroundManager_turn, 0, "f");
+        __classPrivateFieldSet(this, _BackgroundManager_code, "", "f");
     }
     get position() {
         return __classPrivateFieldGet(this, _BackgroundManager_position, "f");
@@ -29,7 +33,19 @@ export class BackgroundManager {
     set state(newState) {
         __classPrivateFieldSet(this, _BackgroundManager_state, newState, "f");
     }
-    changeBackgroundPosition(turn, position, state) {
+    get turn() {
+        return __classPrivateFieldGet(this, _BackgroundManager_turn, "f");
+    }
+    set turn(newTurn) {
+        __classPrivateFieldSet(this, _BackgroundManager_turn, newTurn, "f");
+    }
+    get code() {
+        return __classPrivateFieldGet(this, _BackgroundManager_code, "f");
+    }
+    set code(newCode) {
+        __classPrivateFieldSet(this, _BackgroundManager_code, newCode, "f");
+    }
+    changeCellBackground(turn, position, state) {
         let positionClass = "cell-grey";
         if (state == "rightLetter")
             positionClass = "cell-green";
@@ -37,7 +53,7 @@ export class BackgroundManager {
             positionClass = "cell-orange";
         Array.from(document.getElementById(`row_${turn}`).children)[position].classList.add(positionClass);
     }
-    changeBackgroundKey(code) {
+    changeKeyBackground(code) {
         const keys = document.getElementsByClassName("key");
         for (let key of keys) {
             if (key.value == code && code !== "Enter" && code !== "Backspace") {
@@ -46,4 +62,4 @@ export class BackgroundManager {
         }
     }
 }
-_BackgroundManager_state = new WeakMap(), _BackgroundManager_position = new WeakMap();
+_BackgroundManager_state = new WeakMap(), _BackgroundManager_position = new WeakMap(), _BackgroundManager_turn = new WeakMap(), _BackgroundManager_code = new WeakMap();

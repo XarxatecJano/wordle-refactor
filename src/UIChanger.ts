@@ -1,5 +1,5 @@
 import { LetterManager } from './LetterManager.js';
-import { BackgroundManager } from './BackgroundManager.js';
+import { BackgroundManager } from './userInterface/BackgroundManager.js';
 export class UIChanger {
     #letterManager: LetterManager;
     #backgroundManager: BackgroundManager;
@@ -18,11 +18,11 @@ export class UIChanger {
     }
 
     changeBackgroundPosition(turn: number, position: number, state: string) {
-        this.#backgroundManager.changeBackgroundPosition(turn, position, state);
+        this.#backgroundManager.changeCellBackground(turn, position, state);
     }
 
     changeBackgroundKey(code: string) {
-        this.#backgroundManager.changeBackgroundKey(code);
+        this.#backgroundManager.changeKeyBackground(code);
     }
 }
 
