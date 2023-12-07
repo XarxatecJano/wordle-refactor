@@ -183,8 +183,8 @@ export class Game{
         if (this.isEnterKey(code)) this.enterPressed();
         if (this.isBackspaceKey(code)) this.backspacePressed();
         this.#userInterface.changeBackgroundKey(code);
-        // console.log(this.#actualPosition)
-        // console.log(this.#actualWord)
+        console.log(this.#actualPosition)
+        console.log(this.#actualWord)
     }
 
     
