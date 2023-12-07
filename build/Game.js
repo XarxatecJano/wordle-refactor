@@ -166,8 +166,8 @@ export class Game {
             __classPrivateFieldGet(this, _Game_userInterface, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
             __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f").slice(0, -1), "f");
         }
-        console.log(__classPrivateFieldGet(this, _Game_actualPosition, "f"));
-        console.log(__classPrivateFieldGet(this, _Game_actualWord, "f"));
+        // console.log(this.#actualPosition)
+        // console.log(this.#actualWord)
     }
     newKeyPressed(code) {
         if (__classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE) { // Creo que hay que colocar esto aquí y no dentro de isValidLetter porque antes de permitir meter más letras hay que comprobarlo
@@ -179,8 +179,8 @@ export class Game {
         if (this.isBackspaceKey(code))
             this.backspacePressed();
         __classPrivateFieldGet(this, _Game_userInterface, "f").changeBackgroundKey(code);
-        console.log(__classPrivateFieldGet(this, _Game_actualPosition, "f"));
-        console.log(__classPrivateFieldGet(this, _Game_actualWord, "f"));
+        //console.log(this.#actualPosition)
+        // console.log(this.#actualWord)
     }
 }
 _Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_userInterface = new WeakMap();
