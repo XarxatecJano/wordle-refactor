@@ -4,8 +4,7 @@
   "description": "A wordle game clone",
   "main": "app.js",
   "scripts": {
-    "tsc": "tsc",
-    "start": "tsc & nodemon ./build/app.js",
+    "start": "tsc && nodemon ./build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
