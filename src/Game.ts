@@ -84,6 +84,7 @@ export class Game{
         this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition = this.#actualPosition + 1;
         this.#actualWord += letter;
+        // console.log(letter);
     }
 
     checkWordIsRight():void{
