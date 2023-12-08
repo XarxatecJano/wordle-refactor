@@ -10,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _UIChanger_letterManager, _UIChanger_backgroundManager;
-import { LetterManager } from './LetterManager.js';
+import { LetterManager } from './userInterface/LetterManager.js';
 import { BackgroundManager } from './userInterface/BackgroundManager.js';
 export class UIChanger {
     constructor() {

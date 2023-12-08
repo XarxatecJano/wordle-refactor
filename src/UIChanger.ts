@@ -1,4 +1,4 @@
-import { LetterManager } from './LetterManager.js';
+import { LetterManager } from './userInterface/LetterManager.js';
 import { BackgroundManager } from './userInterface/BackgroundManager.js';
 export class UIChanger {
     #letterManager: LetterManager;
