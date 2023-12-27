@@ -135,6 +135,21 @@ export class Game{
             numberOfCoincidencesPickedWord = (this.#pickedWord.match(pattern)||[]).length;
             numberOfCoincidencesActualWord = (this.#actualWord.match(pattern)||[]).length;
             differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
+           // ========= NUEVO - colorea letras repetidas =========
+              // Verificar si la letra está en la palabra elegida
+            if (numberOfCoincidencesPickedWord > 0) {
+
+            // Verificar si la letra está en la posición correcta
+            if (this.#pickedWord[i] === actualLetter) {
+                // La letra está en la posición correcta, no hacer nada
+                
+            } else {
+                // La letra está en la palabra pero en la posición equivocada        
+                 this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
+            }
+        }
+
+            /* ======== ORIGINAL - No colorea letras repetidas ===========
             if (differenceOfCoincidences==1){
                 for (let j=0; j<MAX_WORD_SIZE; j++){
                     if(this.#pickedWord[j]==actualLetter) {
@@ -147,6 +162,7 @@ export class Game{
                 isMisplacedLetter=false;
             }
             if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
+            */
             
         }
     }

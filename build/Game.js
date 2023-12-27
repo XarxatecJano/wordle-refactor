@@ -45,19 +45,34 @@ export class Game {
                 numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
                 numberOfCoincidencesActualWord = (__classPrivateFieldGet(this, _Game_actualWord, "f").match(pattern) || []).length;
                 differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
-                if (differenceOfCoincidences == 1) {
-                    for (let j = 0; j < MAX_WORD_SIZE; j++) {
-                        if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[j] == actualLetter) {
+                // ========= NUEVO - colorea letras repetidas =========
+                // Verificar si la letra está en la palabra elegida
+                if (numberOfCoincidencesPickedWord > 0) {
+                    // Verificar si la letra está en la posición correcta
+                    if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[i] === actualLetter) {
+                        // La letra está en la posición correcta, no hacer nada
+                    }
+                    else {
+                        // La letra está en la palabra pero en la posición equivocada
+                        /*  this.#userInterface.changeBackgroundPosition(this.#turn, i, "misplacedLetter"); */
+                        __classPrivateFieldGet(this, _Game_backgroundManager, "f").changeCellBackground(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
+                        //isMisplacedLetter=true;
+                    }
+                }
+                /* ======== ORIGINAL - No colorea letras repetidas ===========
+                if (differenceOfCoincidences==1){
+                    for (let j=0; j<MAX_WORD_SIZE; j++){
+                        if(this.#pickedWord[j]==actualLetter) {
                             isMisplacedLetter = false;
                             break;
                         }
                     }
                 }
-                if (differenceOfCoincidences == 0 && __classPrivateFieldGet(this, _Game_pickedWord, "f")[i] == __classPrivateFieldGet(this, _Game_actualWord, "f")[i]) {
-                    isMisplacedLetter = false;
+                if (differenceOfCoincidences==0 && this.#pickedWord[i]==this.#actualWord[i]){
+                    isMisplacedLetter=false;
                 }
-                if (numberOfCoincidencesPickedWord > 0 && isMisplacedLetter)
-                    __classPrivateFieldGet(this, _Game_backgroundManager, "f").changeCellBackground(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
+                if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
+                */
             }
         };
         this.checkWrongLetters = () => {
@@ -200,7 +215,7 @@ export class Game {
             this.backspacePressed();
         __classPrivateFieldGet(this, _Game_backgroundManager, "f").changeKeyBackground(code);
         //console.log(this.#actualPosition)
-        // console.log(this.#actualWord)
+        console.log(__classPrivateFieldGet(this, _Game_actualWord, "f"));
     }
 }
 _Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_letterManager = new WeakMap(), _Game_backgroundManager = new WeakMap();
