@@ -4,6 +4,8 @@ body {
     font-family: 'Outfit', sans-serif;
     justify-items: center;
     display: grid;
+    background-image: url(../src/images/wordlepic.png);
+    background-size: cover;
 }
 
 header {
@@ -99,6 +101,11 @@ h1 {
     
 }
 
+.keyPressed{
+    background-color: #787C7E;
+    color: #ffffff;
+}
+
 .cell-orange {
     background-color: #C9B459;
     color: white;
@@ -112,7 +119,3 @@ h1 {
     color: #ffffff;
 }
 
-.keyPressed{
-    background-color: #787C7E;
-    color: #ffffff;
-}

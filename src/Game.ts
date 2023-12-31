@@ -4,6 +4,7 @@ import {UIChanger} from "./UIChanger.js";
 export class Game {
     #pickedWord: string
     #actualWord: string
+    #lettersPicked: string  //to storage letters picked and remove the background
     #turn: number
     #actualPosition: number
     #validLetterCodes: string[]
@@ -15,6 +16,7 @@ export class Game {
         this.#actualPosition = 0;
         this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
         this.#userInterface = new UIChanger();
+        this.#lettersPicked="";
     }
 
     get pickedWord(){
@@ -29,6 +31,13 @@ export class Game {
     }
     set actualWord(word){
         this.#actualWord = word;
+    }
+
+    get lettersPicked(){
+        return this.#lettersPicked;
+    }
+    set lettersPicked(letterspicked){
+        this.#lettersPicked = letterspicked;
     }
 
     get turn(){
@@ -93,9 +102,11 @@ export class Game {
     }
 
     checkRightLetters = ():void=>{
+        let actualLetter="";
         for(let i=0; i<MAX_WORD_SIZE; i++){
             if (this.#pickedWord[i]==this.#actualWord[i]){
-                this.#userInterface.changeBackgroundPosition(this.#turn, i, "rightLetter");
+                actualLetter=this.#actualWord[i];
+                this.#userInterface.changeBackgroundPosition(this.#turn, i, "rightLetter", actualLetter);
             }
         }
     }
@@ -125,12 +136,13 @@ export class Game {
             if (differenceOfCoincidences==0 && this.#pickedWord[i]==this.#actualWord[i]){
                 isMisplacedLetter=false;
             }
-            if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#userInterface.changeBackgroundPosition(this.#turn, i, "misplacedLetter");
+            if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#userInterface.changeBackgroundPosition(this.#turn, i, "misplacedLetter", actualLetter);
             
         }
     }
 
     checkWrongLetters = ():void=>{
+        let dummiVar=""; //to keep the grey color of buttons
         let actualLetter = "";
         let pattern:RegExp;
         let numberOfCoincidencesPickedWord = 0;
@@ -138,7 +150,7 @@ export class Game {
             actualLetter = this.#actualWord[i];
             pattern = new RegExp(actualLetter,"g");
             numberOfCoincidencesPickedWord = (this.#pickedWord.match(pattern)||[]).length;
-            if (numberOfCoincidencesPickedWord==0) this.#userInterface.changeBackgroundPosition(this.#turn, i, "wrongLetter");
+            if (numberOfCoincidencesPickedWord==0) this.#userInterface.changeBackgroundPosition(this.#turn, i, "wrongLetter",dummiVar);
         }
     }
 
@@ -151,9 +163,12 @@ export class Game {
         this.#actualWord = "";
     }
 
-    checkGameIsOver():void{
-        if (this.turn == MAX_ATTEMPTS){
-            location.assign("/loser");
+    checkGameIsOver():void{ //fix, last attempt correct was an has palmado
+        if (this.turn == MAX_ATTEMPTS && this.#actualWord == this.#pickedWord){
+            location.assign("/winner");       
+        }
+        if (this.turn == MAX_ATTEMPTS && this.#actualWord !== this.#pickedWord){
+            location.assign("/loser");       
         }
     }
 
@@ -165,18 +180,27 @@ export class Game {
         }
     }
 
-    backspacePressed():void{
+    backspacePressed(code: string):void{
+        let backgroundToRemove;  //to remove the background key as well as the letter
+        backgroundToRemove=this.#lettersPicked.slice(-4)  //choice the last key
+        this.#lettersPicked=this.#lettersPicked.slice(0, -4); //set the new array of keys pressed
         if (this.#actualPosition > 0) {
             this.#actualPosition -= 1;
             this.#userInterface.deleteLetter(this.#turn, this.#actualPosition);
+            this.#actualWord = this.#actualWord.slice(0, this.#actualPosition);  //to remove properly the letter
+            this.#userInterface.changeBackgroundKey(code,backgroundToRemove); // to remove the background
         }
     }
 
     newKeyPressed(code: string):void{ 
-        if (this.isValidLetter(code)) this.newLetter(code);
         if (this.isEnterKey(code)) this.enterPressed();
-        if (this.isBackspaceKey(code)) this.backspacePressed();
-        this.#userInterface.changeBackgroundKey(code);
+        if (this.isBackspaceKey(code)) this.backspacePressed(code);
+        if(this.#actualPosition<MAX_WORD_SIZE){
+        if (this.isValidLetter(code)){ this.newLetter(code);
+        let letter: string = code;  // array to storage the pressed keys
+        this.#lettersPicked+=letter;
+        this.#userInterface.changeBackgroundKey(code,this.#lettersPicked);}
+        }
     }
 
     
