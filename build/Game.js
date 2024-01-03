@@ -53,10 +53,8 @@ export class Game {
                         // La letra está en la posición correcta, no hacer nada
                     }
                     else {
-                        // La letra está en la palabra pero en la posición equivocada
-                        /*  this.#userInterface.changeBackgroundPosition(this.#turn, i, "misplacedLetter"); */
+                        // La letra está en la palabra pero en la posición equivocada        
                         __classPrivateFieldGet(this, _Game_backgroundManager, "f").changeCellBackground(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
-                        //isMisplacedLetter=true;
                     }
                 }
                 /* ======== ORIGINAL - No colorea letras repetidas ===========
