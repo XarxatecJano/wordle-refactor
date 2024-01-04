@@ -46,7 +46,7 @@ export class PressedKeys {
     }
     newKeyPressed(code) {
         if (this.game.actualPosition < MAX_WORD_SIZE) {
-            if (this.game.isValidLetter(code))
+            if (this.game.letterManager.isValidLetter(code))
                 this.game.newLetter(code);
         }
         if (this.isEnterKey(code))
@@ -54,7 +54,6 @@ export class PressedKeys {
         if (this.isBackspaceKey(code))
             this.backspacePressed();
         this.game.backgroundManager.changeKeyBackground(code);
-        console.log(this.game.actualWord);
     }
     isEnterKey(code) {
         return code == "Enter";

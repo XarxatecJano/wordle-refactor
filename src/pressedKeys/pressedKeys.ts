@@ -42,12 +42,11 @@ export class PressedKeys implements IPressedKeys {
     
     newKeyPressed(code: string): void {
         if (this.game.actualPosition < MAX_WORD_SIZE) {
-            if (this.game.isValidLetter(code)) this.game.newLetter(code);
+            if (this.game.letterManager.isValidLetter(code)) this.game.newLetter(code);
         }
         if (this.isEnterKey(code)) this.enterPressed();
         if (this.isBackspaceKey(code)) this.backspacePressed();
         this.game.backgroundManager.changeKeyBackground(code);
-        console.log(this.game.actualWord);
     }
 
     isEnterKey(code: string):boolean {

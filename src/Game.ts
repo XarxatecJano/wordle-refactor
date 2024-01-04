@@ -49,12 +49,12 @@ export class Game{
         this.#actualPosition = num;
     }
 
-    get validLetterCodes() {
+    /* get validLetterCodes() {
         return this.#validLetterCodes
     }
     set validLetterCodes(letters) {
         this.#validLetterCodes = letters;
-    }
+    } */
     get letterManager() {
         return this.#letterManager;
     }
@@ -66,10 +66,6 @@ export class Game{
     }
     set backgroundManager(i) {
         this.#backgroundManager = i;
-    }
-
-    isValidLetter(code: string):boolean {
-        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
     }
 
     transformCodeToLetter(code: string):string{

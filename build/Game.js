@@ -104,12 +104,12 @@ export class Game {
     set actualPosition(num) {
         __classPrivateFieldSet(this, _Game_actualPosition, num, "f");
     }
-    get validLetterCodes() {
-        return __classPrivateFieldGet(this, _Game_validLetterCodes, "f");
+    /* get validLetterCodes() {
+        return this.#validLetterCodes
     }
     set validLetterCodes(letters) {
-        __classPrivateFieldSet(this, _Game_validLetterCodes, letters, "f");
-    }
+        this.#validLetterCodes = letters;
+    } */
     get letterManager() {
         return __classPrivateFieldGet(this, _Game_letterManager, "f");
     }
@@ -121,9 +121,6 @@ export class Game {
     }
     set backgroundManager(i) {
         __classPrivateFieldSet(this, _Game_backgroundManager, i, "f");
-    }
-    isValidLetter(code) {
-        return __classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
     }
     transformCodeToLetter(code) {
         let letter = "";
