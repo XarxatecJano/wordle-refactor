@@ -80,7 +80,7 @@ export class Game{
 
     
     isValidLetter(code: string):boolean {
-        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
+        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; 
     }
 
     isEnterKey(code: string):boolean {
@@ -100,11 +100,9 @@ export class Game{
 
     newLetter(code: string):void{
         let letter: string = this.transformCodeToLetter(code);
-        // this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
         this.#letterManager.setNewLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition = this.#actualPosition + 1;
         this.#actualWord += letter;
-        // console.log(letter);
     }
 
     checkWordIsRight():void{
@@ -135,6 +133,7 @@ export class Game{
             numberOfCoincidencesPickedWord = (this.#pickedWord.match(pattern)||[]).length;
             numberOfCoincidencesActualWord = (this.#actualWord.match(pattern)||[]).length;
             differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
+<<<<<<< HEAD
            // ========= NUEVO - colorea letras repetidas =========
               // Verificar si la letra está en la palabra elegida
             if (numberOfCoincidencesPickedWord > 0) {
@@ -164,6 +163,14 @@ export class Game{
             if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
             */
             
+=======
+            if (numberOfCoincidencesPickedWord > 0) {
+                if (this.#pickedWord[i] === actualLetter) {
+                } else {
+                    this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
+                }
+            }
+>>>>>>> ccd8c1a3e9c1a2b929bde962a63ef101bcd86fb4
         }
     }
 
@@ -204,24 +211,24 @@ export class Game{
     }
 
     backspacePressed():void{
-        // console.log(this.#actualPosition)
         if (this.#actualPosition > 0) {
             this.#actualPosition -= 1;
             this.#letterManager.deleteLetter(this.#turn, this.#actualPosition);
             this.#actualWord = this.#actualWord.slice(0, -1);
         }
-        // console.log(this.#actualPosition)
-        // console.log(this.#actualWord)
     }
 
     newKeyPressed(code: string):void{ 
-        if (this.#actualPosition < MAX_WORD_SIZE) { // Creo que hay que colocar esto aquí y no dentro de isValidLetter porque antes de permitir meter más letras hay que comprobarlo
+        if (this.#actualPosition < MAX_WORD_SIZE) { 
             if (this.isValidLetter(code)) this.newLetter(code);
         }
         if (this.isEnterKey(code)) this.enterPressed();
         if (this.isBackspaceKey(code)) this.backspacePressed();
+<<<<<<< HEAD
         this.#backgroundManager.changeKeyBackground(code);
-        //console.log(this.#actualPosition)
+=======
+        this.#userInterface.changeBackgroundKey(code);
+>>>>>>> d4bf8a7 (bug: test git)
         console.log(this.#actualWord)
     }
 
