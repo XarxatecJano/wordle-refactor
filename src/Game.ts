@@ -80,7 +80,7 @@ export class Game{
 
     
     isValidLetter(code: string):boolean {
-        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
+        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; 
     }
 
     isEnterKey(code: string):boolean {
@@ -100,11 +100,9 @@ export class Game{
 
     newLetter(code: string):void{
         let letter: string = this.transformCodeToLetter(code);
-        // this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
         this.#letterManager.setNewLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition = this.#actualPosition + 1;
         this.#actualWord += letter;
-        // console.log(letter);
     }
 
     checkWordIsRight():void{
@@ -135,35 +133,12 @@ export class Game{
             numberOfCoincidencesPickedWord = (this.#pickedWord.match(pattern)||[]).length;
             numberOfCoincidencesActualWord = (this.#actualWord.match(pattern)||[]).length;
             differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
-           // ========= NUEVO - colorea letras repetidas =========
-              // Verificar si la letra está en la palabra elegida
             if (numberOfCoincidencesPickedWord > 0) {
-
-            // Verificar si la letra está en la posición correcta
-            if (this.#pickedWord[i] === actualLetter) {
-                // La letra está en la posición correcta, no hacer nada
-                
-            } else {
-                // La letra está en la palabra pero en la posición equivocada        
-                 this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
-            }
-        }
-
-            /* ======== ORIGINAL - No colorea letras repetidas ===========
-            if (differenceOfCoincidences==1){
-                for (let j=0; j<MAX_WORD_SIZE; j++){
-                    if(this.#pickedWord[j]==actualLetter) {
-                        isMisplacedLetter = false;
-                        break;
-                    }
+                if (this.#pickedWord[i] === actualLetter) {
+                } else {
+                    this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
                 }
             }
-            if (differenceOfCoincidences==0 && this.#pickedWord[i]==this.#actualWord[i]){
-                isMisplacedLetter=false;
-            }
-            if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
-            */
-            
         }
     }
 
@@ -194,7 +169,6 @@ export class Game{
         }
     }
 
-    // PASAR A MANAGE KEYS LAS 3 FUNCIONES
     enterPressed():void{
         if (this.#actualWord.length == MAX_WORD_SIZE){
             this.checkWordIsRight();
@@ -204,18 +178,15 @@ export class Game{
     }
 
     backspacePressed():void{
-        // console.log(this.#actualPosition)
         if (this.#actualPosition > 0) {
             this.#actualPosition -= 1;
             this.#letterManager.deleteLetter(this.#turn, this.#actualPosition);
             this.#actualWord = this.#actualWord.slice(0, -1);
         }
-        // console.log(this.#actualPosition)
-        // console.log(this.#actualWord)
     }
 
     newKeyPressed(code: string):void{ 
-        if (this.#actualPosition < MAX_WORD_SIZE) { // Creo que hay que colocar esto aquí y no dentro de isValidLetter porque antes de permitir meter más letras hay que comprobarlo
+        if (this.#actualPosition < MAX_WORD_SIZE) { 
             if (this.isValidLetter(code)) this.newLetter(code);
         }
         if (this.isEnterKey(code)) this.enterPressed();
@@ -225,7 +196,6 @@ export class Game{
 =======
         this.#userInterface.changeBackgroundKey(code);
 >>>>>>> d4bf8a7 (bug: test git)
-        //console.log(this.#actualPosition)
         console.log(this.#actualWord)
     }
 
