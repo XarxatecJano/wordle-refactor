@@ -25,7 +25,6 @@ export class solutionWord {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const result = yield response.json();
-                // console.log(result['word']);
                 return result['word'].toUpperCase();
             }
             catch (error) {

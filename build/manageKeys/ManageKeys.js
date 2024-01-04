@@ -9,14 +9,18 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _ManageKeys_word, _ManageKeys_game;
+var _ManageKeys_word, _ManageKeys_game, _ManageKeys_pressedKeys;
 import { Game } from "../Game.js";
-export class ManageKeys {
-    constructor() {
+import { PressedKeys } from "../pressedKeys/pressedKeys.js";
+export class ManageKeys extends PressedKeys {
+    constructor(gameInstance) {
+        super(gameInstance);
         _ManageKeys_word.set(this, void 0);
         _ManageKeys_game.set(this, void 0);
+        _ManageKeys_pressedKeys.set(this, void 0);
         __classPrivateFieldSet(this, _ManageKeys_word, "", "f");
-        __classPrivateFieldSet(this, _ManageKeys_game, new Game(""), "f");
+        __classPrivateFieldSet(this, _ManageKeys_game, gameInstance, "f");
+        __classPrivateFieldSet(this, _ManageKeys_pressedKeys, new PressedKeys(gameInstance), "f");
     }
     get word() {
         return __classPrivateFieldGet(this, _ManageKeys_word, "f");
@@ -45,17 +49,18 @@ export class ManageKeys {
     }
     setupGameWithListeners(word) {
         const gameInstance = new Game(word);
+        __classPrivateFieldSet(this, _ManageKeys_pressedKeys, new PressedKeys(gameInstance), "f");
         this.setupClickListeners(gameInstance);
         this.setupKeyDownListener(gameInstance);
     }
     handleKeyClick(game, e) {
         const target = e.target;
         if (target) {
-            game.newKeyPressed(target.value);
+            __classPrivateFieldGet(this, _ManageKeys_pressedKeys, "f").newKeyPressed(target.value);
         }
     }
     handleKeyDown(game, e) {
-        game.newKeyPressed(e.code);
+        __classPrivateFieldGet(this, _ManageKeys_pressedKeys, "f").newKeyPressed(e.code);
     }
 }
-_ManageKeys_word = new WeakMap(), _ManageKeys_game = new WeakMap();
+_ManageKeys_word = new WeakMap(), _ManageKeys_game = new WeakMap(), _ManageKeys_pressedKeys = new WeakMap();

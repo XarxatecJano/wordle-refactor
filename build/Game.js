@@ -11,7 +11,6 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _Game_pickedWord, _Game_actualWord, _Game_turn, _Game_actualPosition, _Game_validLetterCodes, _Game_letterManager, _Game_backgroundManager;
 import { MAX_WORD_SIZE, MAX_ATTEMPTS } from "./env.js";
-// import {UIChanger} from "./UIChanger.js";
 import { BackgroundManager } from "./userInterface/BackgroundManager.js";
 import { LetterManager } from "./userInterface/LetterManager.js";
 export class Game {
@@ -21,7 +20,6 @@ export class Game {
         _Game_turn.set(this, void 0);
         _Game_actualPosition.set(this, void 0);
         _Game_validLetterCodes.set(this, void 0);
-        // #userInterface: UIChanger;
         _Game_letterManager.set(this, void 0);
         _Game_backgroundManager.set(this, void 0);
         this.checkRightLetters = () => {
@@ -45,32 +43,13 @@ export class Game {
                 numberOfCoincidencesPickedWord = (__classPrivateFieldGet(this, _Game_pickedWord, "f").match(pattern) || []).length;
                 numberOfCoincidencesActualWord = (__classPrivateFieldGet(this, _Game_actualWord, "f").match(pattern) || []).length;
                 differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
-                // ========= NUEVO - colorea letras repetidas =========
-                // Verificar si la letra está en la palabra elegida
                 if (numberOfCoincidencesPickedWord > 0) {
-                    // Verificar si la letra está en la posición correcta
                     if (__classPrivateFieldGet(this, _Game_pickedWord, "f")[i] === actualLetter) {
-                        // La letra está en la posición correcta, no hacer nada
                     }
                     else {
-                        // La letra está en la palabra pero en la posición equivocada        
                         __classPrivateFieldGet(this, _Game_backgroundManager, "f").changeCellBackground(__classPrivateFieldGet(this, _Game_turn, "f"), i, "misplacedLetter");
                     }
                 }
-                /* ======== ORIGINAL - No colorea letras repetidas ===========
-                if (differenceOfCoincidences==1){
-                    for (let j=0; j<MAX_WORD_SIZE; j++){
-                        if(this.#pickedWord[j]==actualLetter) {
-                            isMisplacedLetter = false;
-                            break;
-                        }
-                    }
-                }
-                if (differenceOfCoincidences==0 && this.#pickedWord[i]==this.#actualWord[i]){
-                    isMisplacedLetter=false;
-                }
-                if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
-                */
             }
         };
         this.checkWrongLetters = () => {
@@ -98,7 +77,6 @@ export class Game {
         __classPrivateFieldSet(this, _Game_turn, 1, "f");
         __classPrivateFieldSet(this, _Game_actualPosition, 0, "f");
         __classPrivateFieldSet(this, _Game_validLetterCodes, ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"], "f");
-        // this.#userInterface = new UIChanger();
         __classPrivateFieldSet(this, _Game_letterManager, new LetterManager(), "f");
         __classPrivateFieldSet(this, _Game_backgroundManager, new BackgroundManager(), "f");
     }
@@ -132,12 +110,6 @@ export class Game {
     set validLetterCodes(letters) {
         __classPrivateFieldSet(this, _Game_validLetterCodes, letters, "f");
     }
-    // get userInterface() {
-    //     return this.#userInterface;
-    // }
-    // set userInterface(i) {
-    //     this.#userInterface = i;
-    // }
     get letterManager() {
         return __classPrivateFieldGet(this, _Game_letterManager, "f");
     }
@@ -184,37 +156,6 @@ export class Game {
         if (this.turn == MAX_ATTEMPTS) {
             location.assign("/loser");
         }
-    }
-    // PASAR A MANAGE KEYS LAS 3 FUNCIONES
-    enterPressed() {
-        if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
-            this.checkWordIsRight();
-            this.checkGameIsOver();
-            this.updateAfterANewWord();
-        }
-    }
-    backspacePressed() {
-        // console.log(this.#actualPosition)
-        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") > 0) {
-            __classPrivateFieldSet(this, _Game_actualPosition, __classPrivateFieldGet(this, _Game_actualPosition, "f") - 1, "f");
-            __classPrivateFieldGet(this, _Game_letterManager, "f").deleteLetter(__classPrivateFieldGet(this, _Game_turn, "f"), __classPrivateFieldGet(this, _Game_actualPosition, "f"));
-            __classPrivateFieldSet(this, _Game_actualWord, __classPrivateFieldGet(this, _Game_actualWord, "f").slice(0, -1), "f");
-        }
-        // console.log(this.#actualPosition)
-        // console.log(this.#actualWord)
-    }
-    newKeyPressed(code) {
-        if (__classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE) { // Creo que hay que colocar esto aquí y no dentro de isValidLetter porque antes de permitir meter más letras hay que comprobarlo
-            if (this.isValidLetter(code))
-                this.newLetter(code);
-        }
-        if (this.isEnterKey(code))
-            this.enterPressed();
-        if (this.isBackspaceKey(code))
-            this.backspacePressed();
-        __classPrivateFieldGet(this, _Game_backgroundManager, "f").changeKeyBackground(code);
-        //console.log(this.#actualPosition)
-        console.log(__classPrivateFieldGet(this, _Game_actualWord, "f"));
     }
 }
 _Game_pickedWord = new WeakMap(), _Game_actualWord = new WeakMap(), _Game_turn = new WeakMap(), _Game_actualPosition = new WeakMap(), _Game_validLetterCodes = new WeakMap(), _Game_letterManager = new WeakMap(), _Game_backgroundManager = new WeakMap();

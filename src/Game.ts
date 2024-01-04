@@ -1,5 +1,4 @@
 import {MAX_WORD_SIZE, MAX_ATTEMPTS} from "./env.js";
-// import {UIChanger} from "./UIChanger.js";
 import { BackgroundManager } from "./userInterface/BackgroundManager.js";
 import { LetterManager } from "./userInterface/LetterManager.js";
 
@@ -9,7 +8,6 @@ export class Game{
     #turn: number;
     #actualPosition: number;
     #validLetterCodes: string[];
-    // #userInterface: UIChanger;
     #letterManager: LetterManager;
     #backgroundManager: BackgroundManager;
     
@@ -19,7 +17,6 @@ export class Game{
         this.#turn = 1;
         this.#actualPosition = 0;
         this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
-        // this.#userInterface = new UIChanger();
         this.#letterManager = new LetterManager();
         this.#backgroundManager = new BackgroundManager();
     }
@@ -58,13 +55,6 @@ export class Game{
     set validLetterCodes(letters) {
         this.#validLetterCodes = letters;
     }
-
-    // get userInterface() {
-    //     return this.#userInterface;
-    // }
-    // set userInterface(i) {
-    //     this.#userInterface = i;
-    // }
     get letterManager() {
         return this.#letterManager;
     }
@@ -78,9 +68,8 @@ export class Game{
         this.#backgroundManager = i;
     }
 
-    
     isValidLetter(code: string):boolean {
-        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; 
+        return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
     }
 
     isEnterKey(code: string):boolean {
@@ -100,9 +89,11 @@ export class Game{
 
     newLetter(code: string):void{
         let letter: string = this.transformCodeToLetter(code);
+        // this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
         this.#letterManager.setNewLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition = this.#actualPosition + 1;
         this.#actualWord += letter;
+        // console.log(letter);
     }
 
     checkWordIsRight():void{
@@ -133,44 +124,15 @@ export class Game{
             numberOfCoincidencesPickedWord = (this.#pickedWord.match(pattern)||[]).length;
             numberOfCoincidencesActualWord = (this.#actualWord.match(pattern)||[]).length;
             differenceOfCoincidences = Math.abs(numberOfCoincidencesActualWord - numberOfCoincidencesPickedWord);
-<<<<<<< HEAD
-           // ========= NUEVO - colorea letras repetidas =========
-              // Verificar si la letra está en la palabra elegida
+          
             if (numberOfCoincidencesPickedWord > 0) {
 
-            // Verificar si la letra está en la posición correcta
-            if (this.#pickedWord[i] === actualLetter) {
-                // La letra está en la posición correcta, no hacer nada
-                
+             if (this.#pickedWord[i] === actualLetter) {
+                 
             } else {
-                // La letra está en la palabra pero en la posición equivocada        
-                 this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
+                  this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
             }
-        }
-
-            /* ======== ORIGINAL - No colorea letras repetidas ===========
-            if (differenceOfCoincidences==1){
-                for (let j=0; j<MAX_WORD_SIZE; j++){
-                    if(this.#pickedWord[j]==actualLetter) {
-                        isMisplacedLetter = false;
-                        break;
-                    }
-                }
-            }
-            if (differenceOfCoincidences==0 && this.#pickedWord[i]==this.#actualWord[i]){
-                isMisplacedLetter=false;
-            }
-            if (numberOfCoincidencesPickedWord>0 && isMisplacedLetter) this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
-            */
-            
-=======
-            if (numberOfCoincidencesPickedWord > 0) {
-                if (this.#pickedWord[i] === actualLetter) {
-                } else {
-                    this.#backgroundManager.changeCellBackground(this.#turn, i, "misplacedLetter");
-                }
-            }
->>>>>>> ccd8c1a3e9c1a2b929bde962a63ef101bcd86fb4
+        }         
         }
     }
 
@@ -200,37 +162,4 @@ export class Game{
             location.assign("/loser");
         }
     }
-
-    // PASAR A MANAGE KEYS LAS 3 FUNCIONES
-    enterPressed():void{
-        if (this.#actualWord.length == MAX_WORD_SIZE){
-            this.checkWordIsRight();
-            this.checkGameIsOver();
-            this.updateAfterANewWord();
-        }
-    }
-
-    backspacePressed():void{
-        if (this.#actualPosition > 0) {
-            this.#actualPosition -= 1;
-            this.#letterManager.deleteLetter(this.#turn, this.#actualPosition);
-            this.#actualWord = this.#actualWord.slice(0, -1);
-        }
-    }
-
-    newKeyPressed(code: string):void{ 
-        if (this.#actualPosition < MAX_WORD_SIZE) { 
-            if (this.isValidLetter(code)) this.newLetter(code);
-        }
-        if (this.isEnterKey(code)) this.enterPressed();
-        if (this.isBackspaceKey(code)) this.backspacePressed();
-<<<<<<< HEAD
-        this.#backgroundManager.changeKeyBackground(code);
-=======
-        this.#userInterface.changeBackgroundKey(code);
->>>>>>> d4bf8a7 (bug: test git)
-        console.log(this.#actualWord)
-    }
-
-
 }

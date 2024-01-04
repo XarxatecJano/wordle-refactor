@@ -1,15 +1,18 @@
 
 import { IManageKeys } from "./IManageKeys";
 import { Game } from "../Game.js";
-import { solutionWord } from "../manageWords/solutionWord.js";
+import { PressedKeys } from "../pressedKeys/pressedKeys.js";
 
-export class ManageKeys implements IManageKeys {
+export class ManageKeys extends PressedKeys implements IManageKeys{
     #word: string;
     #game: Game;
-
-    constructor() {
+    #pressedKeys: PressedKeys;
+    
+    constructor(gameInstance: Game) {
+        super(gameInstance);
         this.#word = ""; 
-        this.#game = new Game("");
+        this.#game = gameInstance;
+        this.#pressedKeys = new PressedKeys(gameInstance); 
     }
 
     get word(): string {
@@ -42,6 +45,7 @@ export class ManageKeys implements IManageKeys {
 
     setupGameWithListeners(word: string): void {
         const gameInstance = new Game(word);
+        this.#pressedKeys = new PressedKeys(gameInstance); 
         this.setupClickListeners(gameInstance);
         this.setupKeyDownListener(gameInstance);
     }
@@ -49,11 +53,11 @@ export class ManageKeys implements IManageKeys {
     handleKeyClick(game: Game, e: Event): void {
         const target = e.target as HTMLButtonElement;
         if (target) {
-            game.newKeyPressed(target.value);
+            this.#pressedKeys.newKeyPressed(target.value);
         }
     }
 
     handleKeyDown(game: Game, e: KeyboardEvent): void {
-        game.newKeyPressed(e.code);
+        this.#pressedKeys.newKeyPressed(e.code);
     }
 }

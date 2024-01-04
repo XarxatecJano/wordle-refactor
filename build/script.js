@@ -10,9 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { ManageKeys } from "./manageKeys/ManageKeys.js";
 import { getRandomWord } from "./manageWords/getRandomWord.js";
 import { printPickedWord } from "./manageWords/printPickedWord.js";
+import { Game } from "./Game.js";
 function startGame() {
     return __awaiter(this, void 0, void 0, function* () {
-        const manageKeysInstance = new ManageKeys();
+        const gameInstance = new Game('');
+        const manageKeysInstance = new ManageKeys(gameInstance);
         const pickedWord = yield getRandomWord();
         printPickedWord(pickedWord);
         manageKeysInstance.setupGameWithListeners(pickedWord);
