@@ -194,6 +194,7 @@ export class Game{
         }
     }
 
+    // PASAR A MANAGE KEYS LAS 3 FUNCIONES
     enterPressed():void{
         if (this.#actualWord.length == MAX_WORD_SIZE){
             this.checkWordIsRight();

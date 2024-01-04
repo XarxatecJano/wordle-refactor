@@ -185,6 +185,7 @@ export class Game {
             location.assign("/loser");
         }
     }
+    // PASAR A MANAGE KEYS LAS 3 FUNCIONES
     enterPressed() {
         if (__classPrivateFieldGet(this, _Game_actualWord, "f").length == MAX_WORD_SIZE) {
             this.checkWordIsRight();

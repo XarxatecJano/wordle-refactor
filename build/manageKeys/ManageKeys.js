@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
     if (kind === "m") throw new TypeError("Private method is not writable");
     if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
@@ -20,7 +11,6 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 };
 var _ManageKeys_word, _ManageKeys_game;
 import { Game } from "../Game.js";
-import { solutionWord } from "../solutionWord.js";
 export class ManageKeys {
     constructor() {
         _ManageKeys_word.set(this, void 0);
@@ -40,20 +30,6 @@ export class ManageKeys {
     set game(newGame) {
         __classPrivateFieldSet(this, _ManageKeys_game, newGame, "f");
     }
-    getRandomWord() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const wordInstance = new solutionWord();
-            return yield wordInstance.getRandomWordAPI();
-        });
-    }
-    printPickedWord(word) {
-        console.log(word);
-    }
-    setupGameWithListeners(word) {
-        const gameInstance = new Game(word);
-        this.setupClickListeners(gameInstance);
-        this.setupKeyDownListener(gameInstance);
-    }
     setupClickListeners(game) {
         const keys = document.getElementsByClassName("key");
         Array.from(keys).forEach(element => {
@@ -66,6 +42,11 @@ export class ManageKeys {
         document.addEventListener("keydown", (e) => {
             this.handleKeyDown(game, e);
         });
+    }
+    setupGameWithListeners(word) {
+        const gameInstance = new Game(word);
+        this.setupClickListeners(gameInstance);
+        this.setupKeyDownListener(gameInstance);
     }
     handleKeyClick(game, e) {
         const target = e.target;

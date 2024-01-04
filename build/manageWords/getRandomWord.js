@@ -7,15 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ManageKeys } from "./manageKeys/ManageKeys.js";
-import { getRandomWord } from "./manageWords/getRandomWord.js";
-import { printPickedWord } from "./manageWords/printPickedWord.js";
-function startGame() {
+import { solutionWord } from "../manageWords/solutionWord.js";
+export function getRandomWord() {
     return __awaiter(this, void 0, void 0, function* () {
-        const manageKeysInstance = new ManageKeys();
-        const pickedWord = yield getRandomWord();
-        printPickedWord(pickedWord);
-        manageKeysInstance.setupGameWithListeners(pickedWord);
+        const wordInstance = new solutionWord();
+        return yield wordInstance.getRandomWordAPI();
     });
 }
-startGame();
