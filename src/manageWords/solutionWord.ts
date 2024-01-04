@@ -1,4 +1,4 @@
-import { MAX_WORD_SIZE, API_KEY } from "./env.js";
+import { MAX_WORD_SIZE, API_KEY } from "../env.js";
 
 export class solutionWord{
     async getRandomWordAPI(): Promise<any> {

@@ -1,7 +1,7 @@
 
 import { IManageKeys } from "./IManageKeys";
 import { Game } from "../Game.js";
-import { solutionWord } from "../solutionWord.js";
+import { solutionWord } from "../manageWords/solutionWord.js";
 
 export class ManageKeys implements IManageKeys {
     #word: string;
@@ -24,22 +24,7 @@ export class ManageKeys implements IManageKeys {
     set game(newGame: Game) {
         this.#game = newGame;
     }
-
-    async getRandomWord(): Promise<string> {
-        const wordInstance = new solutionWord();
-        return await wordInstance.getRandomWordAPI();
-    }
-
-    printPickedWord(word: string): void {
-        console.log(word);
-    }
-
-    setupGameWithListeners(word: string): void {
-        const gameInstance = new Game(word);
-        this.setupClickListeners(gameInstance);
-        this.setupKeyDownListener(gameInstance);
-    }
-
+    
     setupClickListeners(game: Game): void {
         const keys = document.getElementsByClassName("key");
         Array.from(keys).forEach(element => {
@@ -53,6 +38,12 @@ export class ManageKeys implements IManageKeys {
         document.addEventListener("keydown", (e) => {
             this.handleKeyDown(game, e);
         });
+    }
+
+    setupGameWithListeners(word: string): void {
+        const gameInstance = new Game(word);
+        this.setupClickListeners(gameInstance);
+        this.setupKeyDownListener(gameInstance);
     }
 
     handleKeyClick(game: Game, e: Event): void {
