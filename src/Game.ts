@@ -7,7 +7,6 @@ export class Game{
     #actualWord: string;
     #turn: number;
     #actualPosition: number;
-    #validLetterCodes: string[];
     #letterManager: LetterManager;
     #backgroundManager: BackgroundManager;
     
@@ -16,7 +15,6 @@ export class Game{
         this.#actualWord = "";
         this.#turn = 1;
         this.#actualPosition = 0;
-        this.#validLetterCodes = ["KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Semicolon"];
         this.#letterManager = new LetterManager();
         this.#backgroundManager = new BackgroundManager();
     }
@@ -41,20 +39,12 @@ export class Game{
     set turn(num){
         this.#turn = num;
     }
-
     get actualPosition(){
         return this.#actualPosition;
     }
     set actualPosition(num){
         this.#actualPosition = num;
     }
-
-    /* get validLetterCodes() {
-        return this.#validLetterCodes
-    }
-    set validLetterCodes(letters) {
-        this.#validLetterCodes = letters;
-    } */
     get letterManager() {
         return this.#letterManager;
     }
@@ -77,11 +67,9 @@ export class Game{
 
     newLetter(code: string):void{
         let letter: string = this.transformCodeToLetter(code);
-        // this.#userInterface.setNewLetter(this.turn, this.actualPosition, letter);
         this.#letterManager.setNewLetter(this.turn, this.actualPosition, letter);
         this.#actualPosition = this.#actualPosition + 1;
         this.#actualWord += letter;
-        // console.log(letter);
     }
 
     checkWordIsRight():void{

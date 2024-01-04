@@ -1,4 +1,3 @@
-
 import { IManageKeys } from "./IManageKeys";
 import { Game } from "../Game.js";
 import { PressedKeys } from "../pressedKeys/pressedKeys.js";
