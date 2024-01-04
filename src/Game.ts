@@ -72,14 +72,6 @@ export class Game{
         return  this.#validLetterCodes.includes(code) && this.#actualPosition < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
     }
 
-    isEnterKey(code: string):boolean {
-        return code=="Enter";
-    }
-
-    isBackspaceKey(code: string):boolean{
-        return code=="Backspace";
-    }
-
     transformCodeToLetter(code: string):string{
         let letter: string = "";
         if (code=="Semicolon") letter = "Ñ";

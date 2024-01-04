@@ -49,12 +49,18 @@ export class PressedKeys {
             if (this.game.isValidLetter(code))
                 this.game.newLetter(code);
         }
-        if (this.game.isEnterKey(code))
+        if (this.isEnterKey(code))
             this.enterPressed();
-        if (this.game.isBackspaceKey(code))
+        if (this.isBackspaceKey(code))
             this.backspacePressed();
         this.game.backgroundManager.changeKeyBackground(code);
         console.log(this.game.actualWord);
+    }
+    isEnterKey(code) {
+        return code == "Enter";
+    }
+    isBackspaceKey(code) {
+        return code == "Backspace";
     }
 }
 _PressedKeys_code = new WeakMap(), _PressedKeys_game = new WeakMap();

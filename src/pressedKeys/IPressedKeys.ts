@@ -7,4 +7,6 @@ export interface IPressedKeys {
     enterPressed(): void;
     backspacePressed(): void;
     newKeyPressed(code: string): void;
+    isEnterKey(code: string):boolean;
+    isBackspaceKey(code: string):boolean;
 }

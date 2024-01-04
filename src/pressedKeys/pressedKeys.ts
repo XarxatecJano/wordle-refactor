@@ -44,9 +44,17 @@ export class PressedKeys implements IPressedKeys {
         if (this.game.actualPosition < MAX_WORD_SIZE) {
             if (this.game.isValidLetter(code)) this.game.newLetter(code);
         }
-        if (this.game.isEnterKey(code)) this.enterPressed();
-        if (this.game.isBackspaceKey(code)) this.backspacePressed();
+        if (this.isEnterKey(code)) this.enterPressed();
+        if (this.isBackspaceKey(code)) this.backspacePressed();
         this.game.backgroundManager.changeKeyBackground(code);
         console.log(this.game.actualWord);
+    }
+
+    isEnterKey(code: string):boolean {
+        return code=="Enter";
+    }
+
+    isBackspaceKey(code: string):boolean{
+        return code=="Backspace";
     }
 }

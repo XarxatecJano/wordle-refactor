@@ -125,12 +125,6 @@ export class Game {
     isValidLetter(code) {
         return __classPrivateFieldGet(this, _Game_validLetterCodes, "f").includes(code) && __classPrivateFieldGet(this, _Game_actualPosition, "f") < MAX_WORD_SIZE; // aquí se podría quitar la segunda parte de la comprobación
     }
-    isEnterKey(code) {
-        return code == "Enter";
-    }
-    isBackspaceKey(code) {
-        return code == "Backspace";
-    }
     transformCodeToLetter(code) {
         let letter = "";
         if (code == "Semicolon")
