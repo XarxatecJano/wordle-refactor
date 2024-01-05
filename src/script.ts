@@ -1,18 +1,14 @@
-import {Word} from "./Word.js";
-import {Game} from "./Game.js";
+import { ManageKeys } from "./manageKeys/ManageKeys.js";
+import { getRandomWord } from "./manageWords/getRandomWord.js";
+import { printPickedWord } from "./manageWords/printPickedWord.js";
+import { Game } from "./Game.js";
 
+async function startGame(): Promise<void> {
+    const gameInstance = new Game ('');
+    const manageKeysInstance = new ManageKeys(gameInstance);
+    const pickedWord: string = await getRandomWord();
+    printPickedWord(pickedWord);
+    manageKeysInstance.setupGameWithListeners(pickedWord);
+}
 
-const wordsCollection: Word = new Word(["JUEGO", "TALAR", "BAILE", "ANDAR", "MONTE", "PLAYA", "PLATA", "ARBOL", "QUESO"]);
-const pickedWord: string = wordsCollection.getRandomWord();
-console.log(pickedWord);
-
-const game: Game = new Game(pickedWord);
-
-
-Array.from(document.getElementsByClassName("key")).forEach(element => element.addEventListener("click", (e)=>{
-    game.newKeyPressed((<HTMLButtonElement>e.target).value);
-}));
-
-document.addEventListener("keydown", (e)=>{
-    game.newKeyPressed(e.code);
-});
+startGame();
